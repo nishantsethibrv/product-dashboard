@@ -34,7 +34,7 @@ try {
       });
 
       const data = await response.json();
-      console.log(data, "data")
+      console.log(data, "data");
     } catch (error) {
       console.error("Login failed:", error);
     }
