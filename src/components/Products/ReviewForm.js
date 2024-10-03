@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateReviewData } from '../../store/actions/formAction'; // Action to update reviews
 import StarRating from './StarRating'
+import "./review.css";
 
 const ReviewForm = ({ reviewIndex }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const ReviewForm = ({ reviewIndex }) => {
   }, [review]);
 
   return (
-    <div>
+    <div className="review-section">
       <label>Rating</label>
       {/* Uncomment and implement StarRating if needed */}
       <StarRating

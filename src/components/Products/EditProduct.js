@@ -4,6 +4,8 @@ import InputField from '../InputField'
 import Dropdown from './Dropdown'; // Import the new Dropdown component
 import { useDispatch, useSelector } from 'react-redux';
 import ReviewForm from "./ReviewForm";
+import {updateFormData} from "../../store/actions/formAction.js"
+import "./edit-product.css";
 
 const EditProduct = ({ productData }) => {
     const dispatch = useDispatch();
@@ -29,10 +31,12 @@ const EditProduct = ({ productData }) => {
         title: productData.title,
         description: productData.description,
         price: productData.price,
+        category: productData.category,
         discountPercentage: productData.discountPercentage,
         stock: productData.stock,
         brand: productData.brand,
         weight: productData.weight,
+        rating: productData.rating,
         warrantyInformation: productData.warrantyInformation,
         shippingInformation: productData.shippingInformation,
         availabilityStatus: productData.availabilityStatus,
@@ -43,37 +47,47 @@ const EditProduct = ({ productData }) => {
         console.log('Form data1 updated:', formData);
       });
     }
+    Object.entries(productData).forEach(([key, value]) => {
+      dispatch(updateFormData(key, value));
+    });
     console.log(Object.keys(productData).length, 12)
     }, [productData]);
 
     useEffect(() => {
-      console.log('Form data updated:', formData);
-      console.log(formData.title, 12)
+      // console.log('Form data updated:', formData);
+      // console.log(formData.title, 12)
     }, [formData]);
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        // setProductData(prevState => ({
-        //     ...prevState,
-        //     [name]: value
-        // }));
-    };
+    // const handleInputChange = (e) => {
+    //   console.log(e.target, "ee")
+    //     const { name, value } = e.target;
+    //     // setProductData(prevState => ({
+    //     //     ...prevState,
+    //     //     [name]: value
+    //     // }));
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // dispatch(editProductRequest(productId, productData));
         // Optionally, navigate away after successful update
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        products.push(formData);
+        localStorage.setItem('products', JSON.stringify(products));
     };
+
 
     return (            
             <div className="form-container">
   <form className="product-form" onSubmit={handleSubmit}>
-    <div className="form-row">
+    <h2>Edit a Product</h2>
+    <div className="form-row two-fields">
       <div className="form-group">
         <InputField
           label="Title"
           name="title"
           type="text"
           value={formData.title}
+          disabled={true}
         />
         {errors.title && <span className="error">{errors.title}</span>}
       </div>
@@ -83,7 +97,6 @@ const EditProduct = ({ productData }) => {
           name="description"
           type="text"
           value={formData.description}
-          onChange={handleInputChange}
         />
       </div>
     </div>
@@ -94,7 +107,8 @@ const EditProduct = ({ productData }) => {
               label="Category"
               name="category"
               options={categories}
-              onChange={(e) => handleInputChange('category', e)}
+              value={formData.category}
+              // onChange={(e) => handleInputChange('category', e)}
             />
       </div>
       <div className="form-group">
@@ -103,7 +117,6 @@ const EditProduct = ({ productData }) => {
           name="price"
           type="number"
           value={formData.price}
-          onChange={handleInputChange}
         />
         {errors.price && <span className="error">{errors.price}</span>}
       </div>
@@ -116,17 +129,16 @@ const EditProduct = ({ productData }) => {
           name="discountPercentage"
           type="number"
           value={formData.discountPercentage}
-          onChange={handleInputChange}
         />
         {errors.discountPercentage && <span className="error">{errors.discountPercentage}</span>}
       </div>
-      {/* <div className="form-group">
-        <label>Rating</label>
-        <StarRating
+      <div className="form-group">
+        {/* <label>Ratinssg</label> */}
+        {/* <StarRating
           value={formData.rating}
-          onChange={(value) => handleInputChange('rating', value)}
-        />
-      </div> */}
+          // onChange={(value) => handleInputChange('rating', value)}
+        /> */}
+      </div> 
     </div>
 
     <div className="form-row">
@@ -136,7 +148,6 @@ const EditProduct = ({ productData }) => {
           name="stock"
           type="number"
           value={formData.stock}
-          onChange={handleInputChange}
         />
         {errors.stock && <span className="error">{errors.stock}</span>}
       </div>
@@ -146,7 +157,6 @@ const EditProduct = ({ productData }) => {
           name="brand"
           type="text"
           value={formData.brand}
-          onChange={handleInputChange}
         />
         {errors.brand && <span className="error">{errors.brand}</span>}
       </div>
@@ -159,7 +169,6 @@ const EditProduct = ({ productData }) => {
           name="weight"
           type="number"
           value={formData.weight}
-          onChange={handleInputChange}
         />
         {errors.weight && <span className="error">{errors.weight}</span>}
       </div>
@@ -169,7 +178,6 @@ const EditProduct = ({ productData }) => {
           name="warrantyInformation"
           type="text"
           value={formData.warrantyInformation}
-          onChange={handleInputChange}
         />
         {errors.warrantyInformation && <span className="error">{errors.warrantyInformation}</span>}
       </div>
@@ -182,7 +190,6 @@ const EditProduct = ({ productData }) => {
           name="shippingInformation"
           type="text"
           value={formData.shippingInformation}
-          onChange={handleInputChange}
         />
         {errors.shippingInformation && <span className="error">{errors.shippingInformation}</span>}
       </div>
@@ -192,7 +199,6 @@ const EditProduct = ({ productData }) => {
           name="availabilityStatus"
           type="text"
           value={formData.availabilityStatus}
-          onChange={handleInputChange}
         />
         {errors.availabilityStatus && <span className="error">{errors.availabilityStatus}</span>}
       </div>
@@ -205,7 +211,6 @@ const EditProduct = ({ productData }) => {
           name="returnPolicy"
           type="text"
           value={formData.returnPolicy}
-          onChange={handleInputChange}
         />
         {errors.returnPolicy && <span className="error">{errors.returnPolicy}</span>}
       </div>
@@ -215,7 +220,6 @@ const EditProduct = ({ productData }) => {
           name="minimumOrderQuantity"
           type="number"
           value={formData.minimumOrderQuantity}
-          onChange={handleInputChange}
         />
         {errors.minimumOrderQuantity && <span className="error">{errors.minimumOrderQuantity}</span>}
       </div>

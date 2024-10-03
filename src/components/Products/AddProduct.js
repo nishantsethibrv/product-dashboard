@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from './Dropdown'; // Import the new Dropdown component
 import {updateFormData, resetFormData} from "../../store/actions/formAction.js"
 import {finalFormData} from "../../store/actions/productAction.js"
-
+// import StarRating from './StarRating.js';
 const AddProduct = () => {
   // const [formData, setFormData] = useState({
   //   id: '',

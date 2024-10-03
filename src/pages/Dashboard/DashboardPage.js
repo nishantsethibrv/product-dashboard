@@ -4,7 +4,7 @@ import config from "../../config"
 import { useDispatch, useSelector } from 'react-redux';
 import {storeCategories} from "../../store/actions/categoriesAction"
 import AddProduct from '../../components/Products/AddProduct';
-import EditProduct from '../../components/Products/EditProduct';
+// import EditProduct from '../../components/Products/EditProduct';
 import ListProduct from '../../components/Products/ProductList';
 
 
@@ -87,7 +87,7 @@ const DashboardPage = () => {
           showProductOptions && (
             <ul>
             <li onClick={addProductFormHandler}>Add Product</li>
-            <li onClick={editProductFormHandler}>Edit Product</li>
+            {/* <li onClick={editProductFormHandler}>Edit Product</li> */}
             <li onClick={listProductFormHandler}>List Product</li>
           </ul>
           )
@@ -118,11 +118,11 @@ const DashboardPage = () => {
         <AddProduct />
       )
     }
-    {
+    {/* {
       showEditProductOptions &&(
         <EditProduct />
       )
-    }
+    } */}
     {
       showListProductOptions &&(
         <ListProduct />
