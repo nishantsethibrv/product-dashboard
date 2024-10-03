@@ -1,41 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateReviewData } from '../../store/actions/formAction'; // Action to update reviews
+import { updateReviewData } from '../../store/actions/formAction';
 import StarRating from './StarRating'
 import "./review.css";
 
 const ReviewForm = ({ reviewIndex }) => {
   const dispatch = useDispatch();
-  const review = useSelector((state) => state.formData.review[reviewIndex]);
+  const review = useSelector((state) => state.formData.reviews[reviewIndex]);
+  const [rating, setRating] = useState(0);
 
   const handleReviewChange = (e) => {
     const { name, value } = e.target;
-    
-    // Log the name and value to debug
-    // console.log(`Updating ${name}: ${value}`);
-    
-    // Dispatch the action to update the review in Redux
+
     dispatch(updateReviewData(reviewIndex, name, value));
   };
   const handleRatingChange = (value) => {
-    dispatch(updateReviewData(reviewIndex, 'rating', value)); // Update the rating in Redux state
+   setRating(value);
+    dispatch(updateReviewData(reviewIndex, 'rating', value));
   };
-  // Log the review state to verify it's being updated
   useEffect(() => {
-    // console.log('Current review state:', review);
+    // console.log('review :', review);
   }, [review]);
 
   return (
     <div className="review-section">
       <label>Rating</label>
-      {/* Uncomment and implement StarRating if needed */}
       <StarRating
-        value={review?.rating || 0} // Get current rating from Redux state
-        onChange={handleRatingChange} // Handle the rating change
+        value={review?.rating || 0}
+        onChange={handleRatingChange}
       />
       <label>Comment</label>
       <textarea 
-        name="comment" 
+        name="comment"
+        className="mb-2"
         value={review.comment || ''} 
         onChange={handleReviewChange} 
         placeholder="Enter your comment"
@@ -43,7 +40,8 @@ const ReviewForm = ({ reviewIndex }) => {
 
       <label>Reviewer Name</label>
       <input 
-        type="text" 
+        type="text"
+        className="mb-2"
         name="reviewerName" 
         value={review?.reviewerName || ''} 
         onChange={handleReviewChange} 
@@ -53,7 +51,8 @@ const ReviewForm = ({ reviewIndex }) => {
       <label>Reviewer Email</label>
       <input 
         type="email" 
-        name="reviewerEmail" 
+        name="reviewerEmail"
+        className="mb-2"
         value={review?.reviewerEmail || ''} 
         onChange={handleReviewChange} 
         placeholder="Enter reviewer's email"

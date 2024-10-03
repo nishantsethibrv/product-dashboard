@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 const StarRating = ({ value = 0, onChange }) => {
-  const [hover, setHover] = useState(0); // Tracks the star being hovered
+  const [hover, setHover] = useState(0);
 
   const handleClick = (rating) => {
-    console.log('Selected Rating:', rating); // Log selected rating for debugging
-    onChange(rating); // Call parent handler when a star is clicked
+    console.log('Selected Rating:', rating);
+    onChange(rating);
   };
 
   return (

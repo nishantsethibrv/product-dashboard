@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { editProductRequest } from '../../store/actions/productAction'; // adjust path if necessary
+import { editProductRequest } from '../../store/actions/productAction';
 import InputField from '../InputField'
-import Dropdown from './Dropdown'; // Import the new Dropdown component
+import Dropdown from './Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
-import ReviewForm from "./ReviewForm";
 import {updateFormData} from "../../store/actions/formAction.js"
 import "./edit-product.css";
+import { useNavigate } from 'react-router-dom';
+import ProductList from "./ProductList";
 
 const EditProduct = ({ productData }) => {
     const dispatch = useDispatch();
     const [successMessage, setSuccessMessage] = useState("");
     const [errors, setErrors] = useState({});
   const categories = useSelector((state) => state.categoryData?.categories || []);
-  const [formData, setFormData] = useState({}); // Local state for form data
+    const storeProducts = useSelector((state) => state.formData);
+   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({});
 
     // useEffect(() => {
-    //     // Fetch product from localStorage by productId
     //     const products = JSON.parse(localStorage.getItem('products')) || [];
     //     const product = products.find(prod => prod.id === productId);
     //     if (product) {
-    //         setProductData(product); // Set product data for form
+    //         setProductData(product);
     //     }
     // }, [productId]);
-
+//    console.log(storeProducts, "storeProducts")
     useEffect(() => {
       if(Object.keys(productData).length > 0) {
 
@@ -37,25 +40,25 @@ const EditProduct = ({ productData }) => {
         brand: productData.brand,
         weight: productData.weight,
         rating: productData.rating,
+        reviews: productData.reviews,
         warrantyInformation: productData.warrantyInformation,
         shippingInformation: productData.shippingInformation,
         availabilityStatus: productData.availabilityStatus,
         returnPolicy: productData.returnPolicy,
         minimumOrderQuantity: productData.minimumOrderQuantity,
       }), () => {
-        // Code to execute immediately after state update
         console.log('Form data1 updated:', formData);
       });
     }
     Object.entries(productData).forEach(([key, value]) => {
       dispatch(updateFormData(key, value));
     });
-    console.log(Object.keys(productData).length, 12)
+//    console.log(productData.reviews, 12)
     }, [productData]);
 
     useEffect(() => {
       // console.log('Form data updated:', formData);
-      // console.log(formData.title, 12)
+//       console.log(formData.category, 12)
     }, [formData]);
     // const handleInputChange = (e) => {
     //   console.log(e.target, "ee")
@@ -65,18 +68,48 @@ const EditProduct = ({ productData }) => {
     //     //     [name]: value
     //     // }));
     // };
+    const formatFirstLetter= (str)=> {
+//    console.log(str, "str")
+//    console.log(`${str[0].toUpperCase()}${str.slice(1)}`)
+    if(str !== undefined){
+        return `${str[0].toUpperCase()}${str.slice(1)}`
+    }
+
+    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // dispatch(editProductRequest(productId, productData));
-        // Optionally, navigate away after successful update
-        const products = JSON.parse(localStorage.getItem('products')) || [];
-        products.push(formData);
-        localStorage.setItem('products', JSON.stringify(products));
+//        const storedProducts = JSON.parse(localStorage.getItem('products'));
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+
+    const generateUniqueId = () => {
+       if (!Array.isArray(products) || products.length === 0) {
+        return 200;
+    }
+
+    const validIds = products.map(product => Number(product.id)).filter(id => !isNaN(id));
+
+    const maxId = validIds.length > 0 ? Math.max(...validIds) : 199;
+    return maxId + 1;
+    };
+
+    const newProduct = {
+        ...storeProducts,
+        id: generateUniqueId(),
+    };
+//    console.log(newProduct, "newProduct prodct")
+
+    products.push(newProduct);
+    console.log(products, "final prodct")
+    localStorage.setItem('products', JSON.stringify(products));
+    setSuccessMessage("Product edited successfully!");
+
+
     };
 
 
-    return (            
+    return (
             <div className="form-container">
   <form className="product-form" onSubmit={handleSubmit}>
     <h2>Edit a Product</h2>
@@ -138,7 +171,7 @@ const EditProduct = ({ productData }) => {
           value={formData.rating}
           // onChange={(value) => handleInputChange('rating', value)}
         /> */}
-      </div> 
+      </div>
     </div>
 
     <div className="form-row">
@@ -225,15 +258,13 @@ const EditProduct = ({ productData }) => {
       </div>
     </div>
 
-    <div className="form-group">
-      <ReviewForm reviewIndex={0} />
-    </div>
-    <div className='d-flex'>
+
+    <div className='d-flex justify-content-center'>
     <button type="submit" className="submit-btn me-3">Submit</button>
     {/* <button type="submit" className="submit-btn" onClick={resetForm}>Add new Product</button> */}
     </div>
   </form>
-  {successMessage && <div className="success-message">{successMessage}</div>}
+  {successMessage && <div className="success-message d-flex justify-content-center  blinking-text ">{successMessage}</div>}
 
 </div>
     );

@@ -6,22 +6,42 @@ function* addProduct(action) {
         const response = yield call(fetch, 'https://dummyjson.com/products/add', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', // Specify the content type
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(action.payload), // Convert the payload to JSON
+            body: JSON.stringify(action.payload),
         });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok'); // Handle non-200 responses
+            throw new Error('Network response was not ok');
         }
 
-        const data = yield response.json(); // Parse the JSON response
+        const data = yield response.json();
         console.log(data, "data product")
-        localStorage.setItem('Products', JSON.stringify(data));
-        yield put(finalFormData(data)); // Dispatch success action with the response data
+
+        const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+
+    // Step 2: Find the maximum current ID
+    const maxId = existingProducts.length > 0
+        ? Math.max(...existingProducts.map(product => Number(product.id) || 199))
+        : 199; // Start from 199 if no products exist
+
+    // Step 3: Assign a new ID
+    const newId = maxId + 1;
+
+    // Step 4: Add the new product with the new ID
+    const newProductWithId = {
+        ...data,
+        id: newId, // Assign the new ID
+    };
+
+    // Step 5: Append the new product to the existing products
+    existingProducts.push(newProductWithId);
+
+    // Step 6: Save the updated products list back to localStorage
+    localStorage.setItem('products', JSON.stringify(existingProducts));
+        yield put(finalFormData(data));
     } catch (error) {
         console.error('Error adding product:', error);
-        // Handle error appropriately, e.g., dispatching an error action
     }
 }
 
@@ -29,7 +49,6 @@ function* editProduct(action) {
     try {
         const { productId, updatedProductData } = action.payload;
 
-        // Make the PUT request to update the product using fetch
         const response = yield fetch(`https://dummyjson.com/products/${productId}`, {
             method: 'PUT',
             headers: {
@@ -38,17 +57,14 @@ function* editProduct(action) {
             body: JSON.stringify(updatedProductData),
         });
 
-        // Check if the response is ok (status in the range 200-299)
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
 
-        const data = yield response.json(); // Parse the JSON from the response
+        const data = yield response.json();
 
-        // Dispatch the updated product data to the Redux store
-        yield put(finalFormData(data)); // Assuming you want to update the state with the new product data
+        yield put(finalFormData(data));
 
-        // Optionally, store the updated product in localStorage
         const currentProducts = JSON.parse(localStorage.getItem('products')) || [];
         const updatedProducts = currentProducts.map(product => 
             product.id === productId ? data : product
@@ -56,14 +72,13 @@ function* editProduct(action) {
         localStorage.setItem('products', JSON.stringify(updatedProducts));
     } catch (error) {
         console.error('Error updating product:', error);
-        // Handle error appropriately, e.g., dispatching an error action
     }
 }
 
 export function* watchEditProduct() {
-    yield takeEvery('EDIT_PRODUCT_REQUEST', editProduct); // Watches for this action type
+    yield takeEvery('EDIT_PRODUCT_REQUEST', editProduct);
 }
 
 export function* watchAddProduct() {
-    yield takeEvery('ADD_PRODUCT', addProduct); // Listen for ADD_PRODUCT actions
+    yield takeEvery('ADD_PRODUCT', addProduct);
 }

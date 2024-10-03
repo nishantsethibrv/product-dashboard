@@ -6,7 +6,7 @@ import {storeCategories} from "../../store/actions/categoriesAction"
 import AddProduct from '../../components/Products/AddProduct';
 // import EditProduct from '../../components/Products/EditProduct';
 import ListProduct from '../../components/Products/ProductList';
-
+import ReportList from "../../components/Products/ReportList";
 
 const DashboardPage = () => {
   const [name, setName] = useState("")
@@ -15,6 +15,7 @@ const DashboardPage = () => {
   const [showAddProductOptions, setAddProductOptions] = useState(false)
   const [showEditProductOptions, setEditProductOptions] = useState(false)
   const [showListProductOptions, setListProductOptions] = useState(false)
+  const [showReportList, setshowReportList] = useState(false)
 
   const categoriesAPI = "products/categories";
   const dispatch = useDispatch();
@@ -57,18 +58,28 @@ const DashboardPage = () => {
     setAddProductOptions(!showAddProductOptions)
     setListProductOptions(false)
     setEditProductOptions(false)
+    setshowReportList(false)
   }
 
   const editProductFormHandler = () => {
     setEditProductOptions(!showEditProductOptions)
     setListProductOptions(false)
     setAddProductOptions(false)
+    setshowReportList(false)
   }
 
   const listProductFormHandler = () => {
     setListProductOptions(!showListProductOptions)
     setEditProductOptions(false)
     setAddProductOptions(false)
+    setshowReportList(false)
+  }
+
+  const showReportListHandler = () => {
+    setshowReportList(!showReportList)
+    setEditProductOptions(false)
+    setAddProductOptions(false)
+    setListProductOptions(false)
   }
 
   return (
@@ -89,6 +100,7 @@ const DashboardPage = () => {
             <li onClick={addProductFormHandler}>Add Product</li>
             {/* <li onClick={editProductFormHandler}>Edit Product</li> */}
             <li onClick={listProductFormHandler}>List Product</li>
+            <li onClick={showReportListHandler}>Report List</li>
           </ul>
           )
         }
@@ -127,6 +139,11 @@ const DashboardPage = () => {
       showListProductOptions &&(
         <ListProduct />
       )
+    }
+     {
+            showReportList &&(
+            <ReportList />
+    )
     }
   </div>
 

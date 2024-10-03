@@ -3,9 +3,11 @@ import InputField from '../InputField'
 import ReviewForm from "./ReviewForm";
 import "./AddProduct.css";
 import { useDispatch, useSelector } from 'react-redux';
-import Dropdown from './Dropdown'; // Import the new Dropdown component
+import Dropdown from './Dropdown';
 import {updateFormData, resetFormData} from "../../store/actions/formAction.js"
 import {finalFormData} from "../../store/actions/productAction.js"
+import "../input-field.css"
+
 // import StarRating from './StarRating.js';
 const AddProduct = () => {
   // const [formData, setFormData] = useState({
@@ -134,7 +136,9 @@ const uniqueId = generateUniqueId();
     </div>
 
     <div className="form-row">
-      <div className="form-group">
+      <div className="form-group balance-inputfield" style={{ display: 'flex',
+    justifyContent: 'space-between'}}>
+
               <Dropdown
               label="Category"
               name="category"
@@ -165,18 +169,8 @@ const uniqueId = generateUniqueId();
         />
         {errors.discountPercentage && <span className="error">{errors.discountPercentage}</span>}
       </div>
-      {/* <div className="form-group">
-        <label>Rating</label>
-        <StarRating
-          value={formData.rating}
-          onChange={(value) => handleInputChange('rating', value)}
-        />
-      </div> */}
-    </div>
-
-    <div className="form-row">
       <div className="form-group">
-        <InputField
+         <InputField
           label="Stock"
           name="stock"
           type="number"
@@ -185,7 +179,10 @@ const uniqueId = generateUniqueId();
         />
         {errors.stock && <span className="error">{errors.stock}</span>}
       </div>
-      <div className="form-group">
+    </div>
+
+    <div className="form-row">
+      <div className="form-group ">
         <InputField
           label="Brand"
           name="brand"
@@ -195,9 +192,6 @@ const uniqueId = generateUniqueId();
         />
         {errors.brand && <span className="error">{errors.brand}</span>}
       </div>
-    </div>
-
-    <div className="form-row">
       <div className="form-group">
         <InputField
           label="Weight"
@@ -208,6 +202,9 @@ const uniqueId = generateUniqueId();
         />
         {errors.weight && <span className="error">{errors.weight}</span>}
       </div>
+    </div>
+
+    <div className="form-row">
       <div className="form-group">
         <InputField
           label="Warranty Information"
@@ -218,11 +215,8 @@ const uniqueId = generateUniqueId();
         />
         {errors.warrantyInformation && <span className="error">{errors.warrantyInformation}</span>}
       </div>
-    </div>
-
-    <div className="form-row">
       <div className="form-group">
-        <InputField
+       <InputField
           label="Shipping Information"
           name="shippingInformation"
           type="text"
@@ -231,8 +225,11 @@ const uniqueId = generateUniqueId();
         />
         {errors.shippingInformation && <span className="error">{errors.shippingInformation}</span>}
       </div>
+    </div>
+
+    <div className="form-row">
       <div className="form-group">
-        <InputField
+         <InputField
           label="Availability Status"
           name="availabilityStatus"
           type="text"
@@ -241,9 +238,6 @@ const uniqueId = generateUniqueId();
         />
         {errors.availabilityStatus && <span className="error">{errors.availabilityStatus}</span>}
       </div>
-    </div>
-
-    <div className="form-row">
       <div className="form-group">
         <InputField
           label="Return Policy"
@@ -254,8 +248,11 @@ const uniqueId = generateUniqueId();
         />
         {errors.returnPolicy && <span className="error">{errors.returnPolicy}</span>}
       </div>
+    </div>
+
+    <div className="form-row">
       <div className="form-group">
-        <InputField
+         <InputField
           label="Minimum Order Quantity"
           name="minimumOrderQuantity"
           type="number"
@@ -264,17 +261,18 @@ const uniqueId = generateUniqueId();
         />
         {errors.minimumOrderQuantity && <span className="error">{errors.minimumOrderQuantity}</span>}
       </div>
+      <div className="form-group">
+       <ReviewForm reviewIndex={0} />
+      </div>
     </div>
 
-    <div className="form-group">
-      <ReviewForm reviewIndex={0} />
-    </div>
-    <div className='d-flex'>
+
+    <div className='d-flex justify-content-center'>
     <button type="submit" className="submit-btn me-3">Submit</button>
     {/* <button type="submit" className="submit-btn" onClick={resetForm}>Add new Product</button> */}
     </div>
   </form>
-  {successMessage && <div className="success-message">{successMessage}</div>}
+  {successMessage && <div className="success-message d-flex justify-content-center">{successMessage}</div>}
 
 </div>
 }

@@ -1,4 +1,3 @@
-// src/routes/index.js
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/Login/LoginPage';
@@ -9,10 +8,8 @@ import EditProduct from '../components/Products/EditProduct';
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public Route */}
       <Route path="/" element={<LoginPage />} />
 
-      {/* Protected Routes */}
       <Route
         path="/dashboard"
         element={
@@ -25,7 +22,6 @@ const AppRoutes = () => {
       <Route path="/edit-product/:productId" element={<EditProduct />} />
 
 
-      {/* You can add more protected routes as needed */}
     </Routes>
   );
 };

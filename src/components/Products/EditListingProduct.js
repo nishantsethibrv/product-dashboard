@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../../store/productsSlice'; // Action to fetch products
+import { fetchProducts } from '../../store/productsSlice';
 import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products?.list || []);  // Safeguard for undefined
+  const products = useSelector((state) => state.products?.list || []);
   useEffect(() => {
-    dispatch(fetchProducts()); // Fetching the product list from the store
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   return (
