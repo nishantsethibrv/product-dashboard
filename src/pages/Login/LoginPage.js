@@ -13,7 +13,16 @@ let {login} = AuthCheck();
   });
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  
+
+
+   const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      console.log('Enter key pressed!');
+      // Perform the action here (e.g., submitting the form or triggering a function)
+      handleLogin(e);
+    }
+  };
+
     const handleLogin = async (e) => {
     e.preventDefault();
     // console.log(formData, "form")
@@ -89,7 +98,9 @@ return (
                     <input type="password" id="password"
                     name="password"
                       value={formData.password}
-                    onChange={handleInputChange} placeholder="Enter your password" />
+                    onChange={handleInputChange} placeholder="Enter your password"
+                     onKeyPress={handleKeyPress}
+                    />
                     <i className="icon-lock"></i>
                 </div>
                 {passwordError && <p>{passwordError}</p>}

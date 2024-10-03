@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from './Dropdown';
 import {updateFormData, resetFormData} from "../../store/actions/formAction.js"
 import {finalFormData} from "../../store/actions/productAction.js"
-import "../input-field.css"
 
 // import StarRating from './StarRating.js';
 const AddProduct = () => {
@@ -136,9 +135,7 @@ const uniqueId = generateUniqueId();
     </div>
 
     <div className="form-row">
-      <div className="form-group balance-inputfield" style={{ display: 'flex',
-    justifyContent: 'space-between'}}>
-
+      <div className="form-group ">
               <Dropdown
               label="Category"
               name="category"

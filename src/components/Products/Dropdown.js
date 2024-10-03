@@ -2,6 +2,7 @@ import React,{useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFormData } from '../../store/actions/formAction';
 import "./dropdown.css";
+import "../input-field.css"
 
 const Dropdown = ({ label, name, options, value, onChange }) => {
     const categories = useSelector((state) => state.categoryData?.categories || []);
@@ -17,7 +18,7 @@ const Dropdown = ({ label, name, options, value, onChange }) => {
       dispatch(updateFormData(name, selectedValue));
     };
   return (
-    <div className="form-group">
+    <div className="form-group balance-inputfield">
       <label htmlFor={name}>{label}</label>
       <select className="dropdown-category" id={name} name={name} value={value} onChange={handleChange}>
         <option value="">Select {label}</option>

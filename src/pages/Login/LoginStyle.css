@@ -13,12 +13,12 @@ body {
 }
 
 .login-container {
-    height: 400px;
     display: flex;
     background-color: #E0F7F4;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    padding-top: 124px;
 }
 
 .login-left {
