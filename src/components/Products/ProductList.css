@@ -1,0 +1,32 @@
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 16px; /* Space between grid items */
+  padding: 16px; /* Space around the grid */
+}
+
+.product-card {
+  border: 1px solid #ccc; /* Optional border for styling */
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for styling */
+}
+
+.product-image {
+  width: 100%; /* Image takes up the full width of the card */
+  height: 200px; /* Adjust height as needed */
+  object-fit: cover; /* Scales image to fit the container */
+}
+
+.product-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.product-category,
+.product-price {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px; /* Adjust spacing as needed */
+}
