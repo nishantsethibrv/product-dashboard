@@ -1,9 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { finalFormData } from '../actions/productAction';
+import config from "../../config"
 
 function* addProduct(action) {
     try {
-        const response = yield call(fetch, 'https://dummyjson.com/products/add', {
+        const productURL = "products/add"
+        const response = yield call(fetch, `${config.apiBaseUrl}${productURL}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

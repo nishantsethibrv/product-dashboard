@@ -17,15 +17,13 @@ let {login} = AuthCheck();
 
    const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      console.log('Enter key pressed!');
-      // Perform the action here (e.g., submitting the form or triggering a function)
       handleLogin(e);
     }
   };
 
     const handleLogin = async (e) => {
     e.preventDefault();
-    // console.log(formData, "form")
+    console.log(formData, "form")
     let {email, password} = formData;
 
     if (!email) {
@@ -42,9 +40,8 @@ let {login} = AuthCheck();
         setPasswordError('');
       }
   
-      if (!emailError && !passwordError)   
+      if (emailError && passwordError)   
    {
-        // authHandler(email, password)
             await login(email, password)
             navigate('/dashboard');
       }
@@ -52,23 +49,7 @@ let {login} = AuthCheck();
     
     }
 
-// async function  authHandler(email, password){
-//    console.log(email, password, "auth");
-// try {
-//       const response = await fetch('https://dummyjson.com/auth/login', { // Replace with your API endpoint
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ username: email, password: password }),
-//       });
 
-//       const data = await response.json();
-//       console.log(data, "data");
-//     } catch (error) {
-//       console.error("Login failed:", error);
-//     }
-// }
     const handleInputChange= (e) => {
     let {name, value} = e.target;
     setFormData({

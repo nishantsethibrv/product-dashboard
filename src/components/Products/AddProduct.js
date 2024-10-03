@@ -65,10 +65,13 @@ const uniqueId = generateUniqueId();
   // Validation function
   const validate = () => {
       const newErrors = {};
-      const { title, price, discountPercentage, stock, minimumOrderQuantity,brand,weight,warrantyInformation, shippingInformation, availabilityStatus, returnPolicy } = formData;
-      // console.log(formData, "newErrors")
+      const { title, price, description, category, discountPercentage, stock, minimumOrderQuantity,brand,weight,warrantyInformation, shippingInformation, availabilityStatus, returnPolicy } = formData;
+      console.log(formData, "formData")
 
       if (!title) newErrors.title = 'Title is required';
+      if (!description) newErrors.description = 'description is required';
+      if (!category) newErrors.category = 'category is required';
+
       if (!price || price <= 0) newErrors.price = 'Price must be a positive number';
       if (discountPercentage && (discountPercentage < 0 || discountPercentage > 100)) {
         newErrors.discountPercentage = 'Discount must be between 0 and 100';
@@ -83,7 +86,8 @@ const uniqueId = generateUniqueId();
       if (!title) newErrors.returnPolicy = 'Return policy is required';
 
       // Additional validations can be added as needed
-      // console.log(newErrors, "newErrors")
+      console.log(newErrors, "newErrors")
+      setErrors(newErrors)
       return newErrors;
   };
 
@@ -91,10 +95,10 @@ const uniqueId = generateUniqueId();
     // console.log(e, "sub")
     e.preventDefault();
     if (validate()) {
-      // console.log('Form Data:', formData);
-      if (!formData.id) { 
-        // console.log(uniqueId, "uniqueId")
-        // console.log(formData, "form state")
+      console.log('Form Data:', formData);
+      if (formData.id !== undefined) { 
+        console.log(uniqueId, "uniqueId")
+        // console.log(newErrors, "form state")
         // const dataToSubmit = { ...formData, id: uniqueId }; 
         // console.log(dataToSubmit, "dataToSubmit")
 
@@ -104,10 +108,11 @@ const uniqueId = generateUniqueId();
           payload: formData 
         });
         setSuccessMessage("Product added successfully!");
-    }
     } else {
       console.log('Validation Failed:', errors);
+      console.log(errors.title)
     }
+    } 
   };
 
   return <div className="form-container">
@@ -131,6 +136,7 @@ const uniqueId = generateUniqueId();
           value={formData.description}
           onChange={handleInputChange}
         />
+        {errors.description && <span className="error">{errors.description}</span>}
       </div>
     </div>
 
@@ -142,6 +148,7 @@ const uniqueId = generateUniqueId();
               options={categories}
               onChange={(e) => handleInputChange('category', e)}
             />
+            {errors.category && <span className="error">{errors.category}</span>}
       </div>
       <div className="form-group">
         <InputField

@@ -96,11 +96,11 @@ const DashboardPage = () => {
         <a className="nav-link text-white" onClick={showProductsOption} href="#">Products</a>
         {
           showProductOptions && (
-            <ul>
-            <li onClick={addProductFormHandler}>Add Product</li>
+            <ul className="dashboard-li">
+            <li className="dashboard-li" onClick={addProductFormHandler}>Add Product</li>
             {/* <li onClick={editProductFormHandler}>Edit Product</li> */}
-            <li onClick={listProductFormHandler}>List Product</li>
-            <li onClick={showReportListHandler}>Report List</li>
+            <li className="dashboard-li" onClick={listProductFormHandler}>List Product</li>
+            <li className="dashboard-li" onClick={showReportListHandler}>Report List</li>
           </ul>
           )
         }
@@ -116,9 +116,9 @@ const DashboardPage = () => {
       <a className="navbar-brand" href="#">Welcome! {name}</a>
       <div className="collapse navbar-collapse justify-content-end">
         <ul className="navbar-nav">
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <img src={pic} alt="Profile" class="profile-pic" />
+          <li className="nav-item ">
+            <a className="nav-link dashboard-li " href="#">
+              <img src={pic} alt="Profile" className="profile-pic" />
             </a>
           </li>
         </ul>

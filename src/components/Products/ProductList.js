@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./ProductList.css"
 import { useNavigate } from 'react-router-dom';
 import EditProduct from './EditProduct';
+import config from "../../config"
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
@@ -10,11 +11,12 @@ const ProductsList = () => {
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showEditProduct, setshowEditProduct] = useState(false);
+  const productURL ="products"
   useEffect(() => {
     const fetchProducts = async () => {
         setLoading(true);
         try {
-          const response = await fetch('https://dummyjson.com/products');
+          const response = await fetch(`${config.apiBaseUrl}${productURL}`);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
@@ -32,8 +34,10 @@ const ProductsList = () => {
   }, []);
 
   const handleEditClick = async (productId) => {
+    const productURL ="products/"
+
     try {
-      const response = await fetch(`https://dummyjson.com/products/${productId}`);
+      const response = await fetch(`${config.apiBaseUrl}${productURL}${productId}`);
       const productDetails = await response.json();
       console.log(productDetails, "prod det")
       // navigate(`/edit-product/${productId}`, { state: { product: productDetails } });

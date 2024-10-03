@@ -13,9 +13,9 @@ const AppRoutes = () => {
       <Route
         path="/dashboard"
         element={
-          // <RouteAuth>
+          <RouteAuth>
             <DashboardPage />
-          // </RouteAuth>
+          </RouteAuth>
         }
       />
       <Route path="/products" element={<ProductList />} />

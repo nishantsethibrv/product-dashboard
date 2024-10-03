@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import config from "../config"
 
 const useAuth = () => {
@@ -16,11 +16,13 @@ const useAuth = () => {
       });
 
       const data = await response.json();
-      console.log(data, "data");
+      // console.log(data, "data");
       if(data.accessToken){
         localStorage.setItem("accesstoken", data.accessToken);
+        // alert("its ")
+        setIsAuthenticated(true);
       }
-      if(data.accessToken){
+      if(data.refreshToken){
         localStorage.setItem("refreshtoken", data.refreshToken);
       }
       if(data.firstName || data.lastName){
@@ -38,7 +40,11 @@ const useAuth = () => {
       console.error("Login failed:", error);
     }
   };
-
+  useEffect(() => {
+    if (isAuthenticated) {
+      // console.log("User is authenticated:", isAuthenticated);
+    }
+  }, [isAuthenticated]);
   return { isAuthenticated, login };
 };
 

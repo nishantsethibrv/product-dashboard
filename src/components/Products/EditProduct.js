@@ -29,26 +29,26 @@ const EditProduct = ({ productData }) => {
     useEffect(() => {
       if(Object.keys(productData).length > 0) {
 
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        title: productData.title,
-        description: productData.description,
-        price: productData.price,
-        category: productData.category,
-        discountPercentage: productData.discountPercentage,
-        stock: productData.stock,
-        brand: productData.brand,
-        weight: productData.weight,
-        rating: productData.rating,
-        reviews: productData.reviews,
-        warrantyInformation: productData.warrantyInformation,
-        shippingInformation: productData.shippingInformation,
-        availabilityStatus: productData.availabilityStatus,
-        returnPolicy: productData.returnPolicy,
-        minimumOrderQuantity: productData.minimumOrderQuantity,
-      }), () => {
-        console.log('Form data1 updated:', formData);
-      });
+      // setFormData((prevFormData) => ({
+      //   ...prevFormData,
+      //   title: productData.title,
+      //   description: productData.description,
+      //   price: productData.price,
+      //   category: productData.category,
+      //   discountPercentage: productData.discountPercentage,
+      //   stock: productData.stock,
+      //   brand: productData.brand,
+      //   weight: productData.weight,
+      //   rating: productData.rating,
+      //   reviews: productData.reviews,
+      //   warrantyInformation: productData.warrantyInformation,
+      //   shippingInformation: productData.shippingInformation,
+      //   availabilityStatus: productData.availabilityStatus,
+      //   returnPolicy: productData.returnPolicy,
+      //   minimumOrderQuantity: productData.minimumOrderQuantity,
+      // }), () => {
+      //   console.log('Form data1 updated:', formData);
+      // });
     }
     Object.entries(productData).forEach(([key, value]) => {
       dispatch(updateFormData(key, value));
@@ -56,10 +56,10 @@ const EditProduct = ({ productData }) => {
 //    console.log(productData.reviews, 12)
     }, [productData]);
 
-    useEffect(() => {
-      // console.log('Form data updated:', formData);
-//       console.log(formData.category, 12)
-    }, [formData]);
+//     useEffect(() => {
+//       // console.log('Form data updated:', formData);
+// //       console.log(formData.category, 12)
+//     }, [formData]);
     // const handleInputChange = (e) => {
     //   console.log(e.target, "ee")
     //     const { name, value } = e.target;
@@ -68,14 +68,14 @@ const EditProduct = ({ productData }) => {
     //     //     [name]: value
     //     // }));
     // };
-    const formatFirstLetter= (str)=> {
-//    console.log(str, "str")
-//    console.log(`${str[0].toUpperCase()}${str.slice(1)}`)
-    if(str !== undefined){
-        return `${str[0].toUpperCase()}${str.slice(1)}`
-    }
+//     const formatFirstLetter= (str)=> {
+// //    console.log(str, "str")
+// //    console.log(`${str[0].toUpperCase()}${str.slice(1)}`)
+//     if(str !== undefined){
+//         return `${str[0].toUpperCase()}${str.slice(1)}`
+//     }
 
-    }
+//     }
 
 
     const handleSubmit = (e) => {
@@ -104,11 +104,21 @@ const EditProduct = ({ productData }) => {
     console.log(products, "final prodct")
     localStorage.setItem('products', JSON.stringify(products));
     setSuccessMessage("Product edited successfully!");
-
-
+   
+    setTimeout(() => {
+      callListingProducts();
+    }, 2000)
     };
 
-
+    const callListingProducts = () => {
+      return (
+        <div>
+          {(() => {
+            return <ProductList />;
+          })()}
+        </div>
+      );
+    };
     return (
             <div className="form-container">
   <form className="product-form" onSubmit={handleSubmit}>
