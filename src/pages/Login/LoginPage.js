@@ -70,7 +70,7 @@ return (
                     <input type="text" id="username"
                      value={formData.email}
                      name="email"
-                    onChange={handleInputChange} placeholder="Enter your email" />
+                    onChange={handleInputChange} placeholder="Enter your username" />
                     <i className="icon-user"></i>
                 </div>
                 {emailError && <p className="error">{emailError}</p>}

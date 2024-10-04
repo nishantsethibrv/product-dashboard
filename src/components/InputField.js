@@ -38,6 +38,7 @@ useEffect(() => {
     <div className="balance-inputfield">
       <label htmlFor={name}>{label}</label>
       <input id={name} name={name}
+      className='input-field'
       value={inputValue}
       onChange={handleInputChange}
       placeholder={`Enter your ${label.toLowerCase()}`}

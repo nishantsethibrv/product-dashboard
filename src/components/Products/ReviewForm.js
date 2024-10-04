@@ -32,7 +32,7 @@ const ReviewForm = ({ reviewIndex }) => {
       <label>Comment</label>
       <textarea 
         name="comment"
-        className="mb-2"
+        className="mb-2 p-2"
         value={review.comment || ''} 
         onChange={handleReviewChange} 
         placeholder="Enter your comment"
@@ -41,7 +41,7 @@ const ReviewForm = ({ reviewIndex }) => {
       <label>Reviewer Name</label>
       <input 
         type="text"
-        className="mb-2"
+        className="mb-2 p-2"
         name="reviewerName" 
         value={review?.reviewerName || ''} 
         onChange={handleReviewChange} 
@@ -52,7 +52,7 @@ const ReviewForm = ({ reviewIndex }) => {
       <input 
         type="email" 
         name="reviewerEmail"
-        className="mb-2"
+        className="mb-2 p-2"
         value={review?.reviewerEmail || ''} 
         onChange={handleReviewChange} 
         placeholder="Enter reviewer's email"
