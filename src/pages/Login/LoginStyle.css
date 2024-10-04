@@ -107,3 +107,7 @@ h2 {
 .login-button:hover {
     background-color: #52A89C;
 }
+
+.error{
+    color: red;
+}

@@ -16,10 +16,9 @@ const useAuth = () => {
       });
 
       const data = await response.json();
-      // console.log(data, "data");
+      console.log(data, "data");
       if(data.accessToken){
         localStorage.setItem("accesstoken", data.accessToken);
-        // alert("its ")
         setIsAuthenticated(true);
       }
       if(data.refreshToken){
@@ -31,18 +30,13 @@ const useAuth = () => {
       if(data.image){
         localStorage.setItem("pic", data.image);
       }
-      if (data.isAuthenticated) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
   useEffect(() => {
     if (isAuthenticated) {
-      // console.log("User is authenticated:", isAuthenticated);
+      console.log("User is authenticated:", isAuthenticated);
     }
   }, [isAuthenticated]);
   return { isAuthenticated, login };

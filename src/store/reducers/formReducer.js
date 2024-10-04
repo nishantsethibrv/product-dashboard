@@ -18,7 +18,7 @@ const initialState = {
 
 
 const formReducer = (state = initialState, action) => {
-   console.log(action, "form action")
+  //  console.log(action, "form action")
     switch(action.type){
         case 'UPDATE_FORM_DATA':
           // console.log("form action", action.payload.name , "--", action.payload)

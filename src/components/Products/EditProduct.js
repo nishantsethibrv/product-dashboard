@@ -15,6 +15,7 @@ const EditProduct = ({ productData }) => {
   const categories = useSelector((state) => state.categoryData?.categories || []);
     const storeProducts = useSelector((state) => state.formData);
    const navigate = useNavigate();
+   const [showProductList, setShowProductList] = useState(false);
 
   const [formData, setFormData] = useState({});
 
@@ -106,20 +107,16 @@ const EditProduct = ({ productData }) => {
     setSuccessMessage("Product edited successfully!");
    
     setTimeout(() => {
-      callListingProducts();
-    }, 2000)
+      setShowProductList(true); // Set state to true after 2 seconds
+    }, 2000);
     };
 
-    const callListingProducts = () => {
-      return (
-        <div>
-          {(() => {
-            return <ProductList />;
-          })()}
-        </div>
-      );
-    };
+    
     return (
+      <>
+       
+       {!showProductList &&  
+
             <div className="form-container">
   <form className="product-form" onSubmit={handleSubmit}>
     <h2>Edit a Product</h2>
@@ -273,10 +270,15 @@ const EditProduct = ({ productData }) => {
     <button type="submit" className="submit-btn me-3">Submit</button>
     {/* <button type="submit" className="submit-btn" onClick={resetForm}>Add new Product</button> */}
     </div>
+    {successMessage && <div className="success-message d-flex justify-content-center  blinking-text ">{successMessage}</div>}
   </form>
-  {successMessage && <div className="success-message d-flex justify-content-center  blinking-text ">{successMessage}</div>}
+
 
 </div>
+}
+  {showProductList && <ProductList /> }
+
+</>
     );
 };
 

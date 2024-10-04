@@ -23,11 +23,11 @@ let {login} = AuthCheck();
 
     const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(formData, "form")
+    // console.log(formData, "form")
     let {email, password} = formData;
 
     if (!email) {
-        setEmailError('Please enter your email address.');
+        setEmailError('Please enter your user name.');
       } else {
         setEmailError('');
       }
@@ -39,8 +39,8 @@ let {login} = AuthCheck();
       } else {
         setPasswordError('');
       }
-  
-      if (emailError && passwordError)   
+  // console.log(emailError, "emailError", passwordError)
+      if (email && password) 
    {
             await login(email, password)
             navigate('/dashboard');
@@ -51,10 +51,10 @@ let {login} = AuthCheck();
 
 
     const handleInputChange= (e) => {
-    let {name, value} = e.target;
-    setFormData({
-    ...formData,
-    [name]: value
+        let {name, value} = e.target;
+        setFormData({
+        ...formData,
+        [name]: value
     })
     // console.log(formData, "sss")
     }
@@ -73,18 +73,18 @@ return (
                     onChange={handleInputChange} placeholder="Enter your email" />
                     <i className="icon-user"></i>
                 </div>
-                {emailError && <p>{emailError}</p>}
+                {emailError && <p className="error">{emailError}</p>}
                 <div className="input-container">
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password"
                     name="password"
                       value={formData.password}
                     onChange={handleInputChange} placeholder="Enter your password"
-                     onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
                     />
                     <i className="icon-lock"></i>
                 </div>
-                {passwordError && <p>{passwordError}</p>}
+                {passwordError && <p className="error">{passwordError}</p>}
                 <div className="login-options">
                     <label><input type="checkbox" /> Remember me</label>
                     <a href="#" className="forgot-password">Forgot your password?</a>

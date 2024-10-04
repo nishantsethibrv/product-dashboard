@@ -18,7 +18,7 @@ const AppRoutes = () => {
           </RouteAuth>
         }
       />
-      <Route path="/products" element={<ProductList />} />
+      <Route path="/dashboard/products" element={<ProductList />} />
       <Route path="/edit-product/:productId" element={<EditProduct />} />
 
 
