@@ -7,6 +7,8 @@ import AddProduct from '../../components/Products/AddProduct';
 // import EditProduct from '../../components/Products/EditProduct';
 import ListProduct from '../../components/Products/ProductList';
 import ReportList from "../../components/Products/ReportList";
+import { useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const DashboardPage = () => {
   const [name, setName] = useState("")
@@ -16,6 +18,7 @@ const DashboardPage = () => {
   const [showEditProductOptions, setEditProductOptions] = useState(false)
   const [showListProductOptions, setListProductOptions] = useState(false)
   const [showReportList, setshowReportList] = useState(false)
+  const navigate = useNavigate();
 
   const categoriesAPI = "products/categories";
   const dispatch = useDispatch();
@@ -69,10 +72,11 @@ const DashboardPage = () => {
   }
 
   const listProductFormHandler = () => {
-    setListProductOptions(!showListProductOptions)
-    setEditProductOptions(false)
-    setAddProductOptions(false)
-    setshowReportList(false)
+  navigate('/dashboard/products')
+//    setListProductOptions(!showListProductOptions)
+//    setEditProductOptions(false)
+//    setAddProductOptions(false)
+//    setshowReportList(false)
   }
 
   const showReportListHandler = () => {
@@ -125,6 +129,10 @@ const DashboardPage = () => {
       </div>
     </div>
   </nav>
+    <div className="content">
+        {/* Outlet is where the page-specific content will be rendered */}
+        <Outlet />
+      </div>
     {
       showAddProductOptions &&(
         <AddProduct />
